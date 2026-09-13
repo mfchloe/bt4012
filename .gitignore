@@ -1,0 +1,25 @@
+# Kaggle data
+data/raw/*
+data/processed/*
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Model files
+*.pkl
+*.joblib
+
+# OS
+.DS_Store
+
+# Submission files
+submissions/*
