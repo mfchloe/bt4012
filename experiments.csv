@@ -1,0 +1,8 @@
+date,notebook,change,val_auc,public_lb_auc,notes
+2026-10-03,03_baseline_models,"Baseline Logistic Regression, raw 165 features, class_weight=none",0.8863,,"fit steps 1-24, val 25-35; mean step AUC 0.9149 (std 0.0737, min 0.7366); default hyperparameters"
+2026-10-03,03_baseline_models,"Baseline Random Forest, raw 165 features, class_weight=none",0.9939,,"fit steps 1-24, val 25-35; mean step AUC 0.9931 (std 0.0072, min 0.9759); default hyperparameters"
+2026-10-03,03_baseline_models,"Baseline LightGBM, raw 165 features, class_weight=none",0.996,,"fit steps 1-24, val 25-35; mean step AUC 0.9949 (std 0.0048, min 0.9867); default hyperparameters"
+2026-10-03,03_baseline_models,"Baseline Logistic Regression, raw 165 features, class_weight=balanced",0.8856,,"fit steps 1-24, val 25-35; mean step AUC 0.9130 (std 0.0686, min 0.7504); default hyperparameters"
+2026-10-03,03_baseline_models,"Baseline Random Forest, raw 165 features, class_weight=balanced",0.9965,,"fit steps 1-24, val 25-35; mean step AUC 0.9959 (std 0.0044, min 0.9856); default hyperparameters"
+2026-10-03,03_baseline_models,"Baseline LightGBM, raw 165 features, class_weight=balanced",0.9962,,"fit steps 1-24, val 25-35; mean step AUC 0.9946 (std 0.0060, min 0.9841); default hyperparameters"
+2026-10-03,03_baseline_models,"SUBMISSION Random Forest class_weight=balanced, refit on steps 1-35",0.9965,0.93365,file submissions/2026-10-03_rf_balanced_baseline.csv; val AUC is from the 1-24 -> 25-35 split; fill public_lb_auc after submitting

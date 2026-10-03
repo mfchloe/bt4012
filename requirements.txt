@@ -1,13 +1,16 @@
-pandas
-numpy
-scikit-learn
-matplotlib
-seaborn
-scipy
-lightgbm
-xgboost
-catboost
-networkx
-jupyter
-ipykernel
-joblib
+# Pinned to the versions used to produce the results (Python 3.13).
+# macOS: lightgbm and xgboost also need the OpenMP runtime: `brew install libomp`
+pandas==3.0.6
+numpy==2.5.3
+scikit-learn==1.9.1
+matplotlib==3.11.2
+seaborn==0.13.2
+scipy==1.18.1
+lightgbm==4.7.0
+xgboost==3.4.1
+catboost==1.2.10
+networkx==3.7
+jupyter==1.1.1
+ipykernel==7.4.0
+joblib==1.6.0
+pyarrow==25.0.1
