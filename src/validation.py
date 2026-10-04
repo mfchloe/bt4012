@@ -12,6 +12,12 @@ from src.data import LABEL_COL, ROOT, TIME_COL, labeled
 TRAIN_END = 24
 VAL_END = 35
 
+# "Hard" split: fit on steps 1-22, validate on 23-35. Models that have not seen
+# step 23 score much lower on steps 24, 29, 31 and 32, where a group of illicit
+# transactions with unusual feature values appears (see 04_graph_features.ipynb).
+# This split checks how a model copes with illicit cases unlike its training data.
+HARD_TRAIN_END = 22
+
 
 def temporal_split(df, train_end=TRAIN_END, val_end=VAL_END):
     """Split labeled rows into (fit, validation) by time step.
@@ -81,6 +87,17 @@ def evaluate(model, features, df, train_end=TRAIN_END, val_end=VAL_END):
 
 EXPERIMENTS_FILE = ROOT / "experiments.csv"
 EXPERIMENT_COLS = ["date", "notebook", "change", "val_auc", "public_lb_auc", "notes"]
+
+
+def evaluate_many(model, features, df, train_ends, val_end=VAL_END):
+    """Run evaluate() for several fit-window end points and summarise.
+
+    Averaging over several splits gives a steadier estimate than any single split,
+    because one split's AUC can move by ~0.005-0.009 just from the random seed.
+    Returns a Series of pooled AUCs indexed by train_end.
+    """
+    return pd.Series({end: evaluate(model, features, df, end, val_end)["overall_auc"] for end in train_ends},
+                     name="pooled AUC")
 
 
 def log_experiment(date, notebook, change, val_auc, notes="", public_lb_auc=None):

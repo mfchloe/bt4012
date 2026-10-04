@@ -6,3 +6,29 @@ date,notebook,change,val_auc,public_lb_auc,notes
 2026-10-03,03_baseline_models,"Baseline Random Forest, raw 165 features, class_weight=balanced",0.9965,,"fit steps 1-24, val 25-35; mean step AUC 0.9959 (std 0.0044, min 0.9856); default hyperparameters"
 2026-10-03,03_baseline_models,"Baseline LightGBM, raw 165 features, class_weight=balanced",0.9962,,"fit steps 1-24, val 25-35; mean step AUC 0.9946 (std 0.0060, min 0.9841); default hyperparameters"
 2026-10-03,03_baseline_models,"SUBMISSION Random Forest class_weight=balanced, refit on steps 1-35",0.9965,0.93365,file submissions/2026-10-03_rf_balanced_baseline.csv; val AUC is from the 1-24 -> 25-35 split; fill public_lb_auc after submitting
+2026-10-04,04_graph_features,Random Forest baseline re-scored on hard split,0.9965,,"hard split (1-22 -> 23-35) AUC 0.8091, worst step 0.6040"
+2026-10-04,04_graph_features,"LightGBM (500 trees, lr 0.02, 15 leaves, colsample 0.3), raw 165",0.9971,,"hard split (1-22 -> 23-35) AUC 0.8751, worst step 0.7184"
+2026-10-04,04_graph_features,LightGBM raw + degree,0.997,,"hard split (1-22 -> 23-35) AUC 0.8842, worst step 0.7344; graph features over visible neighbours"
+2026-10-04,04_graph_features,LightGBM raw + neighbour mean/max (all feats),0.9972,,"hard split (1-22 -> 23-35) AUC 0.8627, worst step 0.7117; graph features over visible neighbours"
+2026-10-04,04_graph_features,LightGBM raw + degree + neighbour mean/max,0.9973,,"hard split (1-22 -> 23-35) AUC 0.8540, worst step 0.6811; graph features over visible neighbours"
+2026-10-04,04_graph_features,LightGBM feat_1-93 only,0.9949,,"hard split (1-22 -> 23-35) AUC 0.8299, worst step 0.6626"
+2026-10-04,04_graph_features,LightGBM feat_94-165 only,0.9631,,"hard split (1-22 -> 23-35) AUC 0.9173, worst step 0.8267"
+2026-10-04,04_graph_features,LightGBM feat_94-165 + their neighbour mean/max,0.9638,,"hard split (1-22 -> 23-35) AUC 0.9163, worst step 0.8358"
+2026-10-04,04_graph_features,LightGBM rank blend: all 165  +  feat_94-165,0.9906,,"hard split (1-22 -> 23-35) AUC 0.9141, worst step 0.7962; equal weights"
+2026-10-04,04_graph_features,LightGBM rank blend: all 165  +  feat_94-165 & neighbour agg,0.9909,,"hard split (1-22 -> 23-35) AUC 0.9116, worst step 0.8067; equal weights"
+2026-10-04,04_graph_features,"SUBMISSION lgbm_raw, refit on steps 1-35",0.9971,0.94833,"hard split (1-22 -> 23-35) AUC 0.8751, worst step 0.7184; file submissions/2026-10-04_lgbm_raw.csv; fill public_lb_auc after submitting"
+2026-10-04,04_graph_features,"SUBMISSION blend_raw_f94, refit on steps 1-35",0.9906,0.92,"hard split (1-22 -> 23-35) AUC 0.9141, worst step 0.7962; file submissions/2026-10-04_blend_raw_f94.csv; fill public_lb_auc after submitting"
+2026-10-04,04_graph_features,"LightGBM raw + degree (in/out), 3 seeds x 5 splits",0.9972,,mean difference vs raw +0.0004 (range -0.0086 to +0.0091); not adopted
+2026-10-04,05_model_comparison,"LightGBM tuning: current (15 leaves, cols 0.3, min 20) (3 seeds)",0.9971,,unseen AUC mean over 3 seeds 0.9023
+2026-10-04,05_model_comparison,"LightGBM tuning: 31 leaves, cols 0.6, min 100 (3 seeds)",0.9969,,unseen AUC mean over 3 seeds 0.9089
+2026-10-04,05_model_comparison,"LightGBM tuning: 7 leaves, cols 0.6, min 20 (3 seeds)",0.9945,,unseen AUC mean over 3 seeds 0.9103
+2026-10-04,05_model_comparison,"LightGBM tuning: 7 leaves, cols 0.6, min 100 (3 seeds)",0.9947,,unseen AUC mean over 3 seeds 0.9089
+2026-10-04,05_model_comparison,LightGBM 5-seed average: current,0.9971,,unseen AUC 0.9037 (single seed 0.9023)
+2026-10-04,05_model_comparison,"LightGBM 5-seed average: 31 leaves, cols 0.6, min 100",0.997,,unseen AUC 0.9092 (single seed 0.9089)
+2026-10-04,05_model_comparison,"SUBMISSION lgbm_seedavg, refit on steps 1-35",0.9971,,"current settings, 5 seeds; unseen AUC 0.9037; file submissions/2026-10-04_lgbm_seedavg.csv"
+2026-10-04,05_model_comparison,"SUBMISSION lgbm_tuned_seedavg, refit on steps 1-35",0.997,,"31 leaves, cols 0.6, min 100, 5 seeds; unseen AUC 0.9092; file submissions/2026-10-04_lgbm_tuned_seedavg.csv"
+2026-10-04,05_model_comparison,"Model type: LightGBM (current best, LB 0.948)",0.9971,,unseen AUC (mean of fit 1-16/18/20/22) 0.9028
+2026-10-04,05_model_comparison,"Model type: CatBoost, depth 4",0.995,,unseen AUC (mean of fit 1-16/18/20/22) 0.8872
+2026-10-04,05_model_comparison,"Model type: XGBoost, depth 4",0.995,,unseen AUC (mean of fit 1-16/18/20/22) 0.8711
+2026-10-04,05_model_comparison,"Model type: XGBoost, default settings",0.9954,,unseen AUC (mean of fit 1-16/18/20/22) 0.8685
+2026-10-04,05_model_comparison,"Model type: CatBoost, depth 6",0.9961,,unseen AUC (mean of fit 1-16/18/20/22) 0.8429
