@@ -44,8 +44,9 @@ notebooks can be launched from any directory.
 ```
 data/raw/          Kaggle files (read-only, not in Git)
 data/processed/    Derived data (not in Git)
-notebooks/         01_eda, 02_validation_setup, 03_baseline_models
-src/               data.py (loading), validation.py (temporal CV), features.py
+notebooks/         01_eda -> 06_graph_model (06 = final model, public LB 0.960)
+src/               data.py, validation.py, graph2.py (graph features), make_submission.py (final model)
+scripts/           validation runs behind notebook 06 (decay, smoothing, ensembles, settings)
 submissions/       Submission CSVs (not in Git)
 experiments.csv    Log of every experiment and its validation / leaderboard AUC
 ```

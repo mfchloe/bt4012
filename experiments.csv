@@ -32,3 +32,36 @@ date,notebook,change,val_auc,public_lb_auc,notes
 2026-10-04,05_model_comparison,"Model type: XGBoost, depth 4",0.995,,unseen AUC (mean of fit 1-16/18/20/22) 0.8711
 2026-10-04,05_model_comparison,"Model type: XGBoost, default settings",0.9954,,unseen AUC (mean of fit 1-16/18/20/22) 0.8685
 2026-10-04,05_model_comparison,"Model type: CatBoost, depth 6",0.9961,,unseen AUC (mean of fit 1-16/18/20/22) 0.8429
+2026-10-23,src/make_submission.py,LightGBM raw + struct (labelled-neighbour degrees),0.9978,,easy=mean pooled AUC fit 1-24/26/28/30; hard=fit 1-20/22 mean 0.8874; 3 seeds
+2026-10-23,src/make_submission.py,LightGBM struct + neighbour OOF-score mean/max,0.9982,,hard 0.8865
+2026-10-23,src/make_submission.py,"LightGBM struct + nb, time decay 0.95",0.9984,,hard 0.8925; best on both
+2026-10-23,src/make_submission.py,"LightGBM struct + nb, 2 iterations",0.9981,,hard 0.8882
+2026-10-23,src/make_submission.py,LightGBM struct + nb + 2-hop,0.998,,hard 0.8712
+2026-10-23,src/make_submission.py,ExtraTrees struct + nb,0.9973,,hard 0.8013
+2026-10-23,src/make_submission.py,RF struct + nb,0.9957,,hard 0.8194
+2026-10-23,src/make_submission.py,Rank blend LGB+ET struct + nb,0.9985,,hard 0.8437
+2026-10-23,src/make_submission.py,Rank blend LGB+RF struct + nb,0.9977,,hard 0.8567
+2026-10-23,src/make_submission.py,Rank blend LGB+ET+RF struct + nb,0.9982,,hard 0.8365
+2026-10-23,src/make_submission.py,"SUBMISSION lgb_graph_nb, refit 1-35",0.9982,,file submissions/2026-10-23_lgb_graph_nb.csv
+2026-10-23,src/make_submission.py,"SUBMISSION lgb_graph_nb_decay95, refit 1-35",0.9984,0.96032,file submissions/2026-10-23_lgb_graph_nb_decay95.csv
+2026-10-23,src/make_submission.py,"SUBMISSION lgb_et_graph_nb_decay95, refit 1-35",0.9985,,file submissions/2026-10-23_lgb_et_graph_nb_decay95.csv; easy val is LGB+ET without decay
+2026-10-24,scripts/validate_decay_smoothing.py,"LGB graph, decay 0.9",0.9985,,hard 0.8903
+2026-10-24,scripts/validate_decay_smoothing.py,"LGB graph, decay 0.85",0.9985,,hard 0.8883
+2026-10-24,scripts/validate_decay_smoothing.py,"LGB graph, decay 0.8",0.9985,,hard 0.8830
+2026-10-24,scripts/validate_decay_smoothing.py,LGB graph decay 0.95 + post-hoc neighbour smoothing 0.1,0.9976,,hard 0.8926; smoothing hurts easy splits at every alpha (0.1-0.5)
+2026-10-24,scripts/validate_decay_smoothing.py,LGB graph decay 0.95 + post-hoc neighbour smoothing 0.3,0.991,,hard 0.8877
+2026-10-24,scripts/validate_lgb_params.py,"LGB graph decay .95: 31 leaves, cols 0.6, min 100",0.9983,,hard 0.8978
+2026-10-24,scripts/validate_lgb_params.py,LGB graph decay .95: 1000 trees lr 0.02,0.9986,,hard 0.8847
+2026-10-24,scripts/validate_lgb_params.py,LGB graph decay .95: 7 leaves,0.9978,,hard 0.8903
+2026-10-24,scripts/validate_lgb_params.py,LGB graph decay .95: cols 0.15,0.9984,,hard 0.8729
+2026-10-24,scripts/validate_lgb_params.py,LGB graph decay .95: 1000 trees lr 0.01,0.9984,,hard 0.8892
+2026-10-24,scripts/validate_lgb_params.py,LGB graph decay .95: subsample 0.7,0.9983,,hard 0.8755
+2026-10-24,scripts/validate_lgb_params.py,"LGB graph decay .95: min 50, reg_lambda 5",0.9981,,hard 0.8726
+2026-10-24,scripts/validate_lgb_params.py,"SUBMISSION lgb_graph_nb_decay95_31leaves, refit 1-35",0.9983,0.9568,hedge for final pick; file submissions/2026-10-24_lgb_graph_nb_decay95_31leaves.csv
+2026-10-24,06_graph_model,"Ladder: LightGBM, 165 raw (LB 0.948)",0.9976,,easy = mean of fit 1-24/26/28/30; hard (fit 1-20/22) 0.8927; 3 seeds
+2026-10-24,06_graph_model,Ladder: + structural features,0.9978,,easy = mean of fit 1-24/26/28/30; hard (fit 1-20/22) 0.8874; 3 seeds
+2026-10-24,06_graph_model,Ladder: + neighbour scores,0.9982,,easy = mean of fit 1-24/26/28/30; hard (fit 1-20/22) 0.8865; 3 seeds
+2026-10-24,06_graph_model,Ladder: + recency weighting 0.95,0.9984,,easy = mean of fit 1-24/26/28/30; hard (fit 1-20/22) 0.8925; 3 seeds
+2026-10-24,06_graph_model,"Graph model, decay 0.95",0.9984,,hard 0.8925; 3 seeds
+2026-10-24,06_graph_model,"Graph model, decay 0.9",0.9985,,hard 0.8903; 3 seeds
+2026-10-24,06_graph_model,"Graph model, decay 0.85",0.9985,,hard 0.8883; 3 seeds
