@@ -8,11 +8,16 @@ order.
 
 ## Final submission
 
-**`e1249331.ipynb`** (repository root) is the notebook for my top submission
-(public leaderboard **0.96032**). It is self-contained and covers data
+**`e1249331.ipynb`** (repository root) reproduces **both submissions selected
+for the final private leaderboard**. It is self-contained and covers data
 preprocessing, feature engineering, temporal validation and generating the
-submission CSV (`submissions/e1249331.csv`). Run it top to bottom after the
-data and environment setup below; it takes about 10 minutes.
+submission CSVs. Run it top to bottom after the data and environment setup
+below; it takes about 12 minutes.
+
+| Submission | Model | Public LB | Output file |
+|---|---|---|---|
+| 1 | Two-stage graph LightGBM (15 leaves) | **0.96032** | `submissions/e1249331_sub1.csv` |
+| 2 | Same pipeline, larger stage-2 trees (31 leaves, 60% of columns, min 100 per leaf) | 0.95680 | `submissions/e1249331_sub2.csv` |
 
 The model is a two-stage LightGBM:
 
@@ -68,7 +73,7 @@ notebooks can be launched from any directory.
 ```
 data/raw/          Kaggle files (read-only, not in Git)
 data/processed/    Derived data (not in Git)
-e1249331.ipynb     Final model notebook (top submission, public LB 0.960)
+e1249331.ipynb     Final notebook: reproduces both selected submissions (LB 0.960, 0.957)
 notebooks/         Development history, read in order:
                      01_eda              data, class balance, graph structure
                      02_validation_setup temporal validation design
@@ -88,7 +93,8 @@ experiments.csv    Log of every experiment and its validation / leaderboard AUC
 - `time_step` is never a model feature; it is only used for validation splits
   and for the recency weights.
 - Random seeds are fixed (42 for single models; 42, 1, 2, 3, 4 for the
-  seed-averaged final model). The final notebook reproduces the 0.96032
-  submission file exactly.
-- The same final model can also be built from the command line:
-  `python -m src.make_submission 2026-10-23_lgb_graph_nb_decay95 --decay 0.95`.
+  seed-averaged final model). The final notebook reproduces both submitted
+  files (0.96032 and 0.95680) exactly.
+- The same two submissions can also be built from the command line:
+  `python -m src.make_submission 2026-10-23_lgb_graph_nb_decay95 --decay 0.95` and
+  `python -m src.make_submission 2026-10-24_lgb_graph_nb_decay95_31leaves --decay 0.95 --params '{"num_leaves": 31, "colsample_bytree": 0.6, "min_child_samples": 100}'`.
